@@ -1,11 +1,14 @@
 package integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smallworld.data.Transaction;
 import com.smallworld.repository.impl.TransactionJsonFileRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+
+import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TransactionJsonFileRepositoryImplTest {
@@ -18,6 +21,8 @@ public class TransactionJsonFileRepositoryImplTest {
 
     @Test
     public void findAllTest(){
-        Assertions.assertTrue(transactionJsonFileRepositoryImpl.findAll() != null );
+        List<Transaction> transactionList = transactionJsonFileRepositoryImpl.findAll();
+        Assertions.assertNotNull(transactionList);
+        Assertions.assertNotEquals(0, transactionList.size());
     }
 }
