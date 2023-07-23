@@ -10,7 +10,7 @@ Take your time to fully understand the problem and formulate a plan before start
 
 # Objective
 
-Since we are a money transfer company this test will revolve around a (very) simplified transaction model. Our aim is to implement the methods listed in `com.smallworld.TransactionDataFetcher`, a component that allows us to get some insight into the transactions our system has.
+Since we are a money transfer company this test will revolve around a (very) simplified transaction model. Our aim is to implement the methods listed in `com.smallworld.service.TransactionDataFetcher`, a component that allows us to get some insight into the transactions our system has.
 
 A battery of test transactions is stored in `transactions.json` that is going to be used as a datasource for all our data mapping needs.
 
