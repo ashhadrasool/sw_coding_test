@@ -1,4 +1,4 @@
-package com.smallworld;
+package com.smallworld.service;
 
 import com.smallworld.data.Transaction;
 import java.util.List;
