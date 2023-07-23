@@ -1,13 +1,18 @@
 package com.smallworld.service;
 
 import com.smallworld.data.Transaction;
+import com.smallworld.repository.TransactionRepository;
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+@AllArgsConstructor
 public class TransactionDataFetcher {
 
+    TransactionRepository transactionRepository;
     /**
      * Returns the sum of the amounts of all transactions
      */
@@ -47,7 +52,7 @@ public class TransactionDataFetcher {
     /**
      * Returns all transactions indexed by beneficiary name
      */
-    public Map<String, Transaction> getTransactionsByBeneficiaryName() {
+    public Map<String, List<Transaction>> getTransactionsByBeneficiaryName() {
         throw new UnsupportedOperationException();
     }
 

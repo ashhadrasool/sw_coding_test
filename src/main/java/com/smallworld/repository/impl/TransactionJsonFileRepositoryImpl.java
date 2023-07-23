@@ -7,10 +7,7 @@ import com.smallworld.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-
-import java.util.ArrayList;
 import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionJsonFileRepositoryImpl implements TransactionRepository {
