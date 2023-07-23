@@ -62,7 +62,7 @@ public class TransactionDataFetcherTest {
     @Test
     public void hasOpenComplianceIssuesTest() {
         Mockito.when(transactionRepository.findAll()).thenReturn(commonTransactions);
-        Assertions.assertEquals(2, transactionDataFetcher.hasOpenComplianceIssues("Robben"));
+        Assertions.assertEquals(true, transactionDataFetcher.hasOpenComplianceIssues("Robben"));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class TransactionDataFetcherTest {
     @Test
     public void getUnsolvedIssueIdsTest() {
         Mockito.when(transactionRepository.findAll()).thenReturn(commonTransactions);
-        Assertions.assertEquals(Set.of(14, 15, 16), transactionDataFetcher.getUnsolvedIssueIds());
+        Assertions.assertEquals(Set.of(14l, 15l, 16l), transactionDataFetcher.getUnsolvedIssueIds());
     }
 
     @Test

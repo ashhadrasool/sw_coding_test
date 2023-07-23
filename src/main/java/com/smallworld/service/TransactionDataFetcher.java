@@ -68,21 +68,41 @@ public class TransactionDataFetcher {
      * issue that has not been solved
      */
     public boolean hasOpenComplianceIssues(String clientFullName) {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .filter(transaction -> transaction.getIssueId() != null &&
+                        Boolean.FALSE.equals(transaction.getIssueSolved())
+                        && (transaction.getSenderFullName().equals(clientFullName)
+                        || transaction.getBeneficiaryFullName().equals(clientFullName)
+                        )
+                )
+                .findAny()
+                .isPresent();
     }
 
     /**
      * Returns all transactions indexed by beneficiary name
      */
     public Map<String, List<Transaction>> getTransactionsByBeneficiaryName() {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .collect(Collectors.groupingBy(Transaction::getBeneficiaryFullName));
     }
 
     /**
      * Returns the identifiers of all open compliance issues
      */
-    public Set<Integer> getUnsolvedIssueIds() {
-        throw new UnsupportedOperationException();
+    public Set<Long> getUnsolvedIssueIds() {
+        return transactionRepository
+                .findAll()
+                .stream()
+                .filter(transaction -> transaction.getIssueId() != null &&
+                        Boolean.FALSE.equals(transaction.getIssueSolved()))
+                .map(Transaction::getMtn)
+                .collect(Collectors.toSet());
+
     }
 
     /**
