@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class TransactionDataFetcher {
@@ -17,28 +20,47 @@ public class TransactionDataFetcher {
      * Returns the sum of the amounts of all transactions
      */
     public double getTotalTransactionAmount() {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .mapToDouble(Transaction::getAmount)
+                .sum();
     }
 
     /**
      * Returns the sum of the amounts of all transactions sent by the specified client
      */
     public double getTotalTransactionAmountSentBy(String senderFullName) {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .filter(transaction -> transaction.getSenderFullName().equals(senderFullName))
+                .mapToDouble(Transaction::getAmount)
+                .sum();
     }
 
     /**
      * Returns the highest transaction amount
      */
     public double getMaxTransactionAmount() {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .mapToDouble(Transaction::getAmount)
+                .max()
+                .orElse(0d);
     }
 
     /**
      * Counts the number of unique clients that sent or received a transaction
      */
     public long countUniqueClients() {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .flatMap(transaction -> Stream.of(transaction.getSenderFullName(), transaction.getBeneficiaryFullName()))
+                .distinct()
+                .count();
     }
 
     /**
