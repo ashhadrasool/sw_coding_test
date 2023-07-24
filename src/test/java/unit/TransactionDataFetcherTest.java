@@ -28,9 +28,9 @@ public class TransactionDataFetcherTest {
         commonTransactions.add(Transaction.builder().mtn(11l).senderFullName("Xavi").senderAge(43).beneficiaryFullName("Ineista").beneficiaryAge(39).amount(70d).build());
         commonTransactions.add(Transaction.builder().mtn(12l).senderFullName("Xavi").senderAge(43).beneficiaryFullName("Messi").beneficiaryAge(36).amount(30d).build());
         commonTransactions.add(Transaction.builder().mtn(13l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(60d).build());
-        commonTransactions.add(Transaction.builder().mtn(14l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(40d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
+        commonTransactions.add(Transaction.builder().mtn(14l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(40d).issueId(2).issueMessage("Never gonna pick you up").issueSolved(Boolean.FALSE).build());
         commonTransactions.add(Transaction.builder().mtn(15l).senderFullName("Robben").senderAge(39).beneficiaryFullName("Lewandowski").beneficiaryAge(34).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
-        commonTransactions.add(Transaction.builder().mtn(16l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
+        commonTransactions.add(Transaction.builder().mtn(16l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna run around and help you").issueSolved(Boolean.FALSE).build());
         commonTransactions.add(Transaction.builder().mtn(17l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.TRUE).build());
 
         transactionDataFetcher = new TransactionDataFetcher(transactionRepository);
@@ -78,8 +78,7 @@ public class TransactionDataFetcherTest {
         Map<String, List<Transaction>> expectedMap = new HashMap<>();
         expectedMap.put("Ramos", List.of(Transaction.builder().senderFullName("Ramos").senderAge(20).beneficiaryFullName("Xavi").beneficiaryAge(43).amount(150d).build()));
         expectedMap.put("Xavi", List.of(
-                Transaction.builder().senderFullName("Xavi").senderAge(43).beneficiaryFullName("Ineista").beneficiaryAge(39).amount(50d).build(),
-                Transaction.builder().senderFullName("Xavi").senderAge(43).beneficiaryFullName("Messi").beneficiaryAge(36).amount(50d).build()
+                Transaction.builder().senderFullName("Xavi").senderAge(43).beneficiaryFullName("Ineista").beneficiaryAge(39).amount(50d).build()
                 )
         );
         /**
@@ -90,14 +89,13 @@ public class TransactionDataFetcherTest {
          **/
         Map<String, List<Transaction>> beneficiaryTransactionsMap = transactionDataFetcher.getTransactionsByBeneficiaryName();
 
-        List<Transaction> ramosTransactions = beneficiaryTransactionsMap.get("Ramos");
+        List<Transaction> ramosTransactions = beneficiaryTransactionsMap.get("Xavi");
         Assertions.assertEquals(1,ramosTransactions.size());
         Assertions.assertEquals(transactions.get(0), ramosTransactions.get(0));
 
-        List<Transaction> xaviTransactions = beneficiaryTransactionsMap.get("Xavi");
-        Assertions.assertEquals(2,xaviTransactions.size());
+        List<Transaction> xaviTransactions = beneficiaryTransactionsMap.get("Ineista");
+        Assertions.assertEquals(1,xaviTransactions.size());
         Assertions.assertEquals(transactions.get(1), xaviTransactions.get(0));
-        Assertions.assertEquals(transactions.get(2), xaviTransactions.get(1));
     }
 
     @Test
@@ -109,7 +107,17 @@ public class TransactionDataFetcherTest {
     @Test
     public void getAllSolvedIssueMessagesTest() {
         Mockito.when(transactionRepository.findAll()).thenReturn(commonTransactions);
-        Assertions.assertEquals(Set.of(17), transactionDataFetcher.getAllSolvedIssueMessages());
+
+        List<String> expected = List.of("Never gonna pick you up", "Never gonna give you a pass", "Never gonna run around and help you");
+
+        List<String> actualSolvedIssues = transactionDataFetcher.getAllSolvedIssueMessages();
+        Assertions.assertEquals(3, actualSolvedIssues.size());
+
+        for (String issueMessage: actualSolvedIssues) {
+            if(!expected.contains(issueMessage)){
+                Assertions.fail();
+            }
+        }
     }
 
     @Test

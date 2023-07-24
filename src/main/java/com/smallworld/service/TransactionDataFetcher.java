@@ -131,7 +131,20 @@ public class TransactionDataFetcher {
      * Returns the senderFullName of the sender with the most total sent amount
      */
     public Optional<String> getTopSender() {
-        throw new UnsupportedOperationException();
+        Map<String, Double> map = transactionRepository
+                .findAll()
+                .stream()
+                .collect(Collectors.groupingBy(
+                        Transaction::getSenderFullName,
+                        Collectors.summingDouble(Transaction::getAmount)
+                        )
+                );
+
+        return map.entrySet()
+                .stream()
+                .sorted((m1,m2) -> Double.compare(m2.getValue(), m1.getValue()))
+                .map(Map.Entry::getKey)
+                .findFirst();
     }
 
 }
