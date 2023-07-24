@@ -1,4 +1,4 @@
-package integration;
+package com.smallworld.test.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smallworld.data.Transaction;
@@ -23,6 +23,8 @@ public class TransactionJsonFileRepositoryImplTest {
     public void findAllTest(){
         List<Transaction> transactionList = transactionJsonFileRepositoryImpl.findAll();
         Assertions.assertNotNull(transactionList);
+        /**
+         * The below assertion would be wrong in a case when our database doesn't have any transaction**/
         Assertions.assertNotEquals(0, transactionList.size());
     }
 }
