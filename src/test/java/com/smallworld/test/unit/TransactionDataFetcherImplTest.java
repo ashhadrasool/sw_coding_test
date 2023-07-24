@@ -1,4 +1,4 @@
-package unit;
+package com.smallworld.test.unit;
 
 import com.smallworld.data.Transaction;
 import com.smallworld.repository.TransactionRepository;

@@ -1,14 +1,7 @@
 package com.smallworld.service;
 
 import com.smallworld.data.Transaction;
-import com.smallworld.repository.TransactionRepository;
-import lombok.AllArgsConstructor;
-
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
-
 
 public interface TransactionDataFetcher {
 
