@@ -3,6 +3,7 @@ package unit;
 import com.smallworld.data.Transaction;
 import com.smallworld.repository.TransactionRepository;
 import com.smallworld.service.TransactionDataFetcher;
+import com.smallworld.service.impl.TransactionDataFetcherImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.mockito.Mockito;
 import java.util.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TransactionDataFetcherTest {
+public class TransactionDataFetcherImplTest {
 
     TransactionRepository transactionRepository;
     TransactionDataFetcher transactionDataFetcher;
@@ -33,7 +34,7 @@ public class TransactionDataFetcherTest {
         commonTransactions.add(Transaction.builder().mtn(16l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna run around and help you").issueSolved(Boolean.FALSE).build());
         commonTransactions.add(Transaction.builder().mtn(17l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.TRUE).build());
 
-        transactionDataFetcher = new TransactionDataFetcher(transactionRepository);
+        transactionDataFetcher = new TransactionDataFetcherImpl(transactionRepository);
     }
     @Test
     public void getTotalTransactionAmountTest() {
