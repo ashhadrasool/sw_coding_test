@@ -4,10 +4,7 @@ import com.smallworld.data.Transaction;
 import com.smallworld.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
@@ -109,14 +106,25 @@ public class TransactionDataFetcher {
      * Returns a list of all solved issue messages
      */
     public List<String> getAllSolvedIssueMessages() {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .filter(transaction -> transaction.getIssueId() != null &&
+                        Boolean.FALSE.equals(transaction.getIssueSolved()))
+                .map(Transaction::getIssueMessage)
+                .collect(Collectors.toList());
     }
 
     /**
      * Returns the 3 transactions with the highest amount sorted by amount descending
      */
     public List<Transaction> getTop3TransactionsByAmount() {
-        throw new UnsupportedOperationException();
+        return transactionRepository
+                .findAll()
+                .stream()
+                .sorted(Comparator.comparingDouble(Transaction::getAmount).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
     }
 
     /**

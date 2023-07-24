@@ -27,8 +27,8 @@ public class TransactionDataFetcherTest {
         commonTransactions.add(Transaction.builder().mtn(10l).senderFullName("Ramos").senderAge(20).beneficiaryFullName("Xavi").beneficiaryAge(43).amount(150d).build());
         commonTransactions.add(Transaction.builder().mtn(11l).senderFullName("Xavi").senderAge(43).beneficiaryFullName("Ineista").beneficiaryAge(39).amount(70d).build());
         commonTransactions.add(Transaction.builder().mtn(12l).senderFullName("Xavi").senderAge(43).beneficiaryFullName("Messi").beneficiaryAge(36).amount(30d).build());
-        commonTransactions.add(Transaction.builder().mtn(13l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(50d).build());
-        commonTransactions.add(Transaction.builder().mtn(14l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
+        commonTransactions.add(Transaction.builder().mtn(13l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(60d).build());
+        commonTransactions.add(Transaction.builder().mtn(14l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(40d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
         commonTransactions.add(Transaction.builder().mtn(15l).senderFullName("Robben").senderAge(39).beneficiaryFullName("Lewandowski").beneficiaryAge(34).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
         commonTransactions.add(Transaction.builder().mtn(16l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.FALSE).build());
         commonTransactions.add(Transaction.builder().mtn(17l).senderFullName("Lewandowski").senderAge(34).beneficiaryFullName("Robben").beneficiaryAge(39).amount(50d).issueId(2).issueMessage("Never gonna give you a pass").issueSolved(Boolean.TRUE).build());
@@ -118,8 +118,8 @@ public class TransactionDataFetcherTest {
 
         List<Transaction> expectedTransactions = new ArrayList<>();
         expectedTransactions.add(Transaction.builder().mtn(10l).senderFullName("Ramos").senderAge(20).beneficiaryFullName("Xavi").beneficiaryAge(43).amount(150d).build());
-        expectedTransactions.add(Transaction.builder().mtn(13l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(100d).build());
         expectedTransactions.add(Transaction.builder().mtn(11l).senderFullName("Xavi").senderAge(43).beneficiaryFullName("Ineista").beneficiaryAge(39).amount(70d).build());
+        expectedTransactions.add(Transaction.builder().mtn(13l).senderFullName("Bale").senderAge(34).beneficiaryFullName("Ronaldo").beneficiaryAge(38).amount(60d).build());
 
         List<Transaction> actualTransactions = transactionDataFetcher.getTop3TransactionsByAmount();
 
